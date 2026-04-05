@@ -12,7 +12,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # LINE Bot setup
-line_bot_api = line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
+line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
 handler = handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 
 
@@ -117,10 +117,7 @@ def handle_message(event):
 
     
 
-    # Reply to the user
-   # line_bot_api.reply_message(
-       # event.reply_token,
-       # TextSendMessage(text=reply_text)
+   
     
 
 @app.route("/", methods=['GET'])

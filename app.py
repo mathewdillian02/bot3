@@ -103,17 +103,7 @@ def handle_message(event):
             ]
             reply_text = random.choice(responses)
 
-    # Send reply
-    message = TextSendMessage(text=reply_text)
     
-    # Add Quick Replies only on /help
-    if lower_text in ['/help', 'help', '/menu']:
-        message.quick_reply = quick_reply_items
-
-    line_bot_api.reply_message(
-        event.reply_token,
-        message
-    )
 
     
 

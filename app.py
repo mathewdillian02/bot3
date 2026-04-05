@@ -118,9 +118,9 @@ def handle_message(event):
     
 
     # Reply to the user
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=reply_text)
+   # line_bot_api.reply_message(
+       # event.reply_token,
+       # TextSendMessage(text=reply_text)
     )
 
 @app.route("/", methods=['GET'])

@@ -1,7 +1,7 @@
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, QuickReply, QuickReplyButton, MessageAction
 import os
 from dotenv import load_dotenv
 from datetime import datetime
@@ -12,7 +12,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # LINE Bot setup
-line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
+line_bot_api = line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
 handler = handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 
 
@@ -36,7 +36,8 @@ def webhook():
 def handle_message(event):
     user_text = event.message.text.strip()
     lower_text = user_text.lower()
-
+    reply_text = "mmm, I'm listening"
+    quick_reply_items = None
     # === Command Handling (still works as before) ===
     if lower_text in ['/help', 'help', '/menu']:
         reply_text = "🔥 **NSFW Command Bot** 🔥\n\n" \
@@ -102,7 +103,11 @@ def handle_message(event):
                 "I wish you were here with me right now...",
             ]
             reply_text = random.choice(responses)
+    message = TextSendMessage(text=reply_text)
+    if quick_reply_items:
+        message.quick_reply = quick_reply_items
 
+    line_bot_api.reply_message(event.reply_token, message)
     
 
     
